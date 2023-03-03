@@ -11,7 +11,7 @@ const GlobalStyles = createGlobalStyle`
     font-weight: 400;
     font-size: 12px;
     position: relative;
-    overflow: hidden;
+    // overflow: hidden;
     height: 100%;
     color: black;
     background-color: white;

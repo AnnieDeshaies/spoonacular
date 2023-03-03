@@ -1,8 +1,15 @@
 import { useContext } from 'react'
 import { useQuery } from 'react-query'
+import styled from 'styled-components'
 
 import { AppContext } from './App'
+import RecipeCard from './components/RecipeCard'
 import fetchRecipes from './api/fetchRecipes'
+
+const StyledGrid = styled.div`
+	display: flex;
+	flex-wrap: wrap;
+`
 
 const Recipes = () => {
 	const context = useContext(AppContext)
@@ -22,9 +29,12 @@ const Recipes = () => {
 	return (
 		<div>
 			<h1>Recipes</h1>
-			{Object.values(data).map((recipe, index) => {
-				return <li key={index}>{JSON.stringify(recipe)}</li>
-			})}
+
+			<StyledGrid>
+				{Object.values(data?.results).map((recipe, index) => {
+					return <RecipeCard key={index} {...recipe} />
+				})}
+			</StyledGrid>
 		</div>
 	)
 }
