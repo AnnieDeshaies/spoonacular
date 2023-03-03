@@ -1,19 +1,23 @@
 import { useState, createContext } from 'react'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { useDebounce } from 'use-debounce'
-import styled from 'styled-components'
 
+import Recipes from './components/Recipes'
+import RecipeInfo from './components/RecipeInfo'
 import GlobalStyles from './styles/globalStyles'
-import Recipes from './Recipes'
-import SearchInput from './components/SearchInput'
-
-const StyledHeader = styled.div`
-	display: flex;
-	justify-content: space-between;
-	align-items: baseline;
-	margin: 32px;
-`
 
 export const AppContext = createContext()
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <Recipes />
+	},
+	{
+		path: '/:id',
+		element: <RecipeInfo />
+	}
+])
 
 const App = () => {
 	const [query, setQuery] = useState('')
@@ -23,13 +27,7 @@ const App = () => {
 	return (
 		<AppContext.Provider value={{ query, setQuery, debouncedQuery, offset, setOffset }}>
 			<GlobalStyles />
-
-			<StyledHeader>
-				<h1>Recipes</h1>
-				<SearchInput />
-			</StyledHeader>
-
-			<Recipes />
+			<RouterProvider router={router} />
 		</AppContext.Provider>
 	)
 }

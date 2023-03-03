@@ -1,7 +1,9 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const StyledCard = styled.div`
-	border: 1px solid black;
+const StyledCard = styled(Link)`
+	text-decoration: none;
+	color: black;
 	max-width: 380px;
 	width: fit-content;
 	min-height: 352px;
@@ -26,7 +28,7 @@ const StyledTitle = styled.h2`
 `
 
 const RecipeCard = (recipe) => (
-	<StyledCard tabIndex={0}>
+	<StyledCard tabIndex={0} to={`/${recipe.id}`}>
 		<StyledTitle>{recipe.title}</StyledTitle>
 		<img src={recipe.image} alt={recipe.title} />
 	</StyledCard>

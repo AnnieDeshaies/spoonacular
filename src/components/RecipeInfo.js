@@ -1,9 +1,10 @@
 import { useQuery } from 'react-query'
+import { useParams } from 'react-router-dom'
 import styled from 'styled-components'
 import { BiLeaf } from 'react-icons/bi'
 
 import Loader from './Loader'
-import fetchRecipe from '../api/fetchRecipe'
+import recipeAgent from '../api/recipeAgent'
 
 const StyledContainer = styled.div`
 	margin: 32px;
@@ -22,8 +23,9 @@ const StyledDiets = styled.div`
 	}
 `
 
-const RecipeInfo = (recipe) => {
-	const { data, error, isError, isLoading } = useQuery(['recipe', recipe.id], () => fetchRecipe(recipe.id))
+const RecipeInfo = () => {
+	const { id } = useParams()
+	const { data, error, isError, isLoading } = useQuery(['recipe', id], () => recipeAgent.getRecipe(id))
 
 	if (isLoading) {
 		return (
