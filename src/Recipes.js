@@ -33,7 +33,6 @@ const Recipes = () => {
 
 	return (
 		<div>
-			<h1>Recipes</h1>
 			{currentRecipe && <RecipeInfo {...currentRecipe} />}
 			<StyledGrid>
 				{Object.values(data?.results).map((recipe, index) => (

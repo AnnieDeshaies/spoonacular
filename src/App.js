@@ -6,7 +6,10 @@ import GlobalStyles from './styles/globalStyles'
 import Recipes from './Recipes'
 import SearchInput from './components/SearchInput'
 
-const StyledLayout = styled.div`
+const StyledHeader = styled.div`
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
 	margin: 32px;
 `
 
@@ -21,10 +24,12 @@ const App = () => {
 		<AppContext.Provider value={{ query, setQuery, debouncedQuery, offset, setOffset }}>
 			<GlobalStyles />
 
-			<StyledLayout>
+			<StyledHeader>
+				<h1>Recipes</h1>
 				<SearchInput />
-				<Recipes />
-			</StyledLayout>
+			</StyledHeader>
+
+			<Recipes />
 		</AppContext.Provider>
 	)
 }

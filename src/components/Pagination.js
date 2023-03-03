@@ -1,22 +1,33 @@
 import { useContext } from 'react'
 import ReactPaginate from 'react-paginate'
 import styled from 'styled-components'
+import { FiChevronRight, FiChevronLeft, FiMoreHorizontal } from 'react-icons/fi'
 
 import { AppContext } from '../App'
 
 const StyledPagination = styled(ReactPaginate)`
 	list-style-type: none;
 	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 32px;
 
 	li {
-		border: 1px solid black;
-		width: fit-content;
+		border: 2px #767676 solid;
+		border-radius: 100%;
+		margin: 4px;
+		transition: all 0.2s ease-in-out;
 
 		&:not(.break):hover:not(.disabled),
 		&.selected {
-			background-color: blue;
-			color: white;
+			color: #015ecc;
+			border-color: #015ecc;
 			cursor: pointer;
+		}
+
+		&:active,
+		&:focus {
+			outline: -webkit-focus-ring-color auto 1px;
 		}
 
 		&.disabled {
@@ -31,8 +42,12 @@ const StyledPagination = styled(ReactPaginate)`
 			min-width: 32px;
 		}
 
-		&.break a {
-			pointer-events: none;
+		&.break {
+			border: none;
+
+			a {
+				pointer-events: none;
+			}
 		}
 	}
 `
@@ -47,12 +62,12 @@ const Pagination = (data) => {
 	return (
 		<StyledPagination
 			forcePage={context.offset / 5}
-			breakLabel='...'
-			nextLabel='next >'
+			breakLabel={<FiMoreHorizontal />}
+			nextLabel={<FiChevronRight />}
 			onPageChange={handleOnClick}
 			pageRangeDisplayed={5}
 			pageCount={getPages()}
-			previousLabel='< previous'
+			previousLabel={<FiChevronLeft />}
 			renderOnZeroPageCount={null}
 			marginPagesDisplayed={0}
 		/>

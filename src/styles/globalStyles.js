@@ -7,7 +7,7 @@ import { createGlobalStyle } from 'styled-components'
 
 const GlobalStyles = createGlobalStyle`
   body {
-    font-family: 'Open Sans';
+    font-family: 'Poppins', sans-serif;
     font-weight: 400;
     font-size: 12px;
     position: relative;
@@ -17,6 +17,11 @@ const GlobalStyles = createGlobalStyle`
     opacity: 1;
     transition: opacity 100ms linear;
     font-variant-numeric: tabular-nums;
+  }
+
+  input {
+    padding: 8px 16px;
+	  border-radius: 8px;
   }
 `
 
