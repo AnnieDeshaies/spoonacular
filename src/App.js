@@ -10,11 +10,11 @@ export const AppContext = createContext()
 
 const router = createBrowserRouter([
 	{
-		path: '/',
+		path: '/spoonacular',
 		element: <Recipes />
 	},
 	{
-		path: '/recipe/:id',
+		path: '/spoonacular/:id',
 		element: <RecipeInfo />
 	}
 ])

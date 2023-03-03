@@ -28,7 +28,7 @@ const StyledTitle = styled.h2`
 `
 
 const RecipeCard = (recipe) => (
-	<StyledCard tabIndex={0} to={`/recipe/${recipe.id}`}>
+	<StyledCard tabIndex={0} to={`/spoonacular/${recipe.id}`}>
 		<StyledTitle>{recipe.title}</StyledTitle>
 		<img src={recipe.image} alt={recipe.title} />
 	</StyledCard>
