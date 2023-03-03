@@ -8,16 +8,11 @@ const StyledPagination = styled(ReactPaginate)`
 	list-style-type: none;
 	display: flex;
 
-	a {
-		padding: 8px;
-		margin: 8px;
-	}
-
 	li {
 		border: 1px solid black;
 		width: fit-content;
 
-		&:hover:not(.disabled),
+		&:not(.break):hover:not(.disabled),
 		&.selected {
 			background-color: blue;
 			color: white;
@@ -27,6 +22,18 @@ const StyledPagination = styled(ReactPaginate)`
 		&.disabled {
 			opacity: 0.4;
 		}
+
+		a {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			height: 32px;
+			min-width: 32px;
+		}
+
+		&.break a {
+			pointer-events: none;
+		}
 	}
 `
 
@@ -35,26 +42,20 @@ const Pagination = (data) => {
 
 	const getPages = () => Math.ceil(data?.totalResults / data?.number) + 1
 
-	const handleOnClick = (data) => {
-		console.log(data)
-		context.setOffset(data.selected * 5)
-	}
+	const handleOnClick = (data) => context.setOffset(data.selected * 5)
 
 	return (
-		<div>
-			{JSON.stringify(data)}
-			<p>Number of pages: {getPages()}</p>
-
-			<StyledPagination
-				breakLabel='...'
-				nextLabel='next >'
-				onPageChange={handleOnClick}
-				pageRangeDisplayed={2}
-				pageCount={getPages()}
-				previousLabel='< previous'
-				renderOnZeroPageCount={null}
-			/>
-		</div>
+		<StyledPagination
+			forcePage={context.offset / 5}
+			breakLabel='...'
+			nextLabel='next >'
+			onPageChange={handleOnClick}
+			pageRangeDisplayed={5}
+			pageCount={getPages()}
+			previousLabel='< previous'
+			renderOnZeroPageCount={null}
+			marginPagesDisplayed={0}
+		/>
 	)
 }
 
