@@ -1,6 +1,6 @@
 {
 	"name": "spoonacular",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"private": true,
 	"homepage": "https://anniedeshaies.github.io/spoonacular/",
 	"dependencies": {
