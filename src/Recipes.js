@@ -4,6 +4,7 @@ import styled from 'styled-components'
 
 import { AppContext } from './App'
 import RecipeCard from './components/RecipeCard'
+import Pagination from './components/Pagination'
 import fetchRecipes from './api/fetchRecipes'
 
 const StyledGrid = styled.div`
@@ -14,8 +15,8 @@ const StyledGrid = styled.div`
 const Recipes = () => {
 	const context = useContext(AppContext)
 
-	const { data, error, isError, isLoading } = useQuery(['recipes', { query: context.debouncedQuery }], () =>
-		fetchRecipes(context.debouncedQuery)
+	const { data, error, isError, isLoading } = useQuery(['recipes', context.debouncedQuery, context.offset], () =>
+		fetchRecipes(context.debouncedQuery, context.offset)
 	)
 
 	if (isLoading) {
@@ -35,6 +36,8 @@ const Recipes = () => {
 					return <RecipeCard key={index} {...recipe} />
 				})}
 			</StyledGrid>
+
+			<Pagination {...data} />
 		</div>
 	)
 }
