@@ -1,9 +1,10 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { useQuery } from 'react-query'
 import styled from 'styled-components'
 
 import { AppContext } from './App'
 import RecipeCard from './components/RecipeCard'
+import RecipeInfo from './components/RecipeInfo'
 import Pagination from './components/Pagination'
 import fetchRecipes from './api/fetchRecipes'
 
@@ -13,6 +14,8 @@ const StyledGrid = styled.div`
 `
 
 const Recipes = () => {
+	const [currentRecipe, setCurrentRecipe] = useState()
+
 	const context = useContext(AppContext)
 
 	const { data, error, isError, isLoading } = useQuery(['recipes', context.debouncedQuery, context.offset], () =>
@@ -30,13 +33,14 @@ const Recipes = () => {
 	return (
 		<div>
 			<h1>Recipes</h1>
-
+			{currentRecipe && <RecipeInfo {...currentRecipe} />}
 			<StyledGrid>
-				{Object.values(data?.results).map((recipe, index) => {
-					return <RecipeCard key={index} {...recipe} />
-				})}
+				{Object.values(data?.results).map((recipe, index) => (
+					<div key={index} onClick={() => setCurrentRecipe(recipe)}>
+						<RecipeCard {...recipe} />
+					</div>
+				))}
 			</StyledGrid>
-
 			<Pagination {...data} />
 		</div>
 	)
