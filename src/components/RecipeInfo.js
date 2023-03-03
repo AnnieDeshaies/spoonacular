@@ -1,9 +1,18 @@
 import { useQuery } from 'react-query'
 
+import Loader from './Loader'
 import fetchRecipe from '../api/fetchRecipe'
 
 const RecipeInfo = (recipe) => {
 	const { data, error, isError, isLoading } = useQuery(['recipe', recipe.id], () => fetchRecipe(recipe.id))
+
+	if (isLoading) {
+		return <Loader />
+	}
+
+	if (isError) {
+		return <div>Error! {error.message}</div>
+	}
 
 	return (
 		<div>

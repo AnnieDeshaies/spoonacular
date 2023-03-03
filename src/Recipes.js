@@ -6,6 +6,7 @@ import { AppContext } from './App'
 import RecipeCard from './components/RecipeCard'
 import RecipeInfo from './components/RecipeInfo'
 import Pagination from './components/Pagination'
+import Loader from './components/Loader'
 import fetchRecipes from './api/fetchRecipes'
 
 const StyledGrid = styled.div`
@@ -23,7 +24,7 @@ const Recipes = () => {
 	)
 
 	if (isLoading) {
-		return <div>Loading...</div>
+		return <Loader />
 	}
 
 	if (isError) {
