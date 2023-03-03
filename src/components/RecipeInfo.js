@@ -1,48 +1,74 @@
 import { useQuery } from 'react-query'
+import styled from 'styled-components'
+import { BiLeaf } from 'react-icons/bi'
 
 import Loader from './Loader'
 import fetchRecipe from '../api/fetchRecipe'
+
+const StyledContainer = styled.div`
+	margin: 32px;
+`
+
+const StyledDiets = styled.div`
+	display: flex;
+
+	svg {
+		font-size: 16px;
+		margin-right: 4px;
+	}
+
+	span:not(:last-of-type) {
+		margin-right: 16px;
+	}
+`
 
 const RecipeInfo = (recipe) => {
 	const { data, error, isError, isLoading } = useQuery(['recipe', recipe.id], () => fetchRecipe(recipe.id))
 
 	if (isLoading) {
-		return <Loader />
+		return (
+			<StyledContainer>
+				<Loader />
+			</StyledContainer>
+		)
 	}
 
 	if (isError) {
-		return <div>Error! {error.message}</div>
+		return <StyledContainer>Error! {error.message}</StyledContainer>
 	}
 
 	return (
-		<div>
-			<p>name: {data?.title}</p>
+		<StyledContainer>
+			<h2>{data?.title}</h2>
 			<img src={data?.image} alt={data?.title} />
-			<p>dairy free: {data?.dairyFree}</p>
-			<p>gluten free: {data?.glutenFree}</p>
-			<p>ketogenic: {data?.ketogenic}</p>
-			<p>low Fodmap: {data?.lowFodmap}</p>
-			<p>vegan: {data?.vegan}</p>
-			<p>vegetarian: {data?.vegetarian}</p>
 
-			<p>ingredients:</p>
+			<StyledDiets>
+				{data?.diets.map((diet, index) => (
+					<span key={index}>
+						<BiLeaf />
+						{diet}
+					</span>
+				))}
+			</StyledDiets>
+
+			<h3>Ingredients:</h3>
 
 			{data?.extendedIngredients?.map((ingredient, index) => (
-				<div key={index}>
-					<p>name: {ingredient.name}</p>
-					<p>
-						amount: {ingredient.amount} + unit: {ingredient.unit}
-					</p>
-				</div>
+				<p key={index}>
+					{ingredient.amount.toFixed(2)}&nbsp;{ingredient.unit}&nbsp;{ingredient.name}
+				</p>
 			))}
 
+			<hr />
+
+			<h3>Instructions:</h3>
+
 			{data?.analyzedInstructions[0]?.steps?.map((instruction, index) => (
-				<div key={index}>
-					<p>number: {instruction.number}</p>
-					<p>step: {instruction.step}</p>
-				</div>
+				<p key={index}>
+					{instruction.number}:&nbsp;{instruction.step}
+				</p>
 			))}
-		</div>
+		</StyledContainer>
 	)
 }
 
